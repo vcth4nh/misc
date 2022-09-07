@@ -12,8 +12,8 @@ xhr = new XMLHttpRequest();
 let url;
 xhr.open("GET", "/", false);
 xhr.onload = function () {
-    url = /"http:\/\/localhost:8003\/profile\/.*"/.exec(xhr.response);
-    console.log(url[0]);
+    url = /"http:\/\/localhost:8003\/profile\/.*"/.exec(xhr.response)[0];
+    console.log(url);
 };
 xhr.send(null);
 
@@ -21,6 +21,6 @@ xhr.send(null);
 // Post flag to our profile
 xhr.open("POST", "/api/user/update", false);
 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-data = `bio=${url[0]}&csrf_token=${csrf}`;
+data = `bio=${url}&csrf_token=${csrf}`;
 console.log(data);
 xhr.send(data);
